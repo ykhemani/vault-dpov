@@ -20,7 +20,7 @@ For example:
 vault login -method userpass username=${VAULT_USERNAME}
 ```
 
-##### Expected Result:
+##### Expected Result
 ```
 $ vault login -method userpass username=${VAULT_USERNAME}
 Password (will be hidden): 
@@ -60,7 +60,7 @@ export MYSQL_VAULT_DB_PASSWORD=vault
 export MYSQL_DATABASE=demodb
 ```
 
-##### Expected Result:
+##### Expected Result
 ```
 $ export MYSQL_VAULT_PATH=mysql-demo
 $ export MYSQL_EXAMPLE_ROLE_RO=demo-mysql-role-ro
@@ -81,7 +81,7 @@ vault secrets disable ${MYSQL_VAULT_PATH}
 vault secrets enable -path ${MYSQL_VAULT_PATH} database
 ```
 
-##### Expected Result:
+##### Expected Result
 ```
 $ vault secrets disable ${MYSQL_VAULT_PATH}
 Success! Disabled the secrets engine (if it existed) at: mysql-demo/
@@ -101,7 +101,7 @@ vault write ${MYSQL_VAULT_PATH}/config/${MYSQL_DB_NAME} \
     password="${MYSQL_VAULT_DB_PASSWORD}"
 ```
 
-##### Expected Result:
+##### Expected Result
 ```
 $ vault write ${MYSQL_VAULT_PATH}/config/${MYSQL_DB_NAME} \
 >     plugin_name=mysql-database-plugin \
@@ -121,7 +121,7 @@ vault write ${MYSQL_VAULT_PATH}/roles/${MYSQL_EXAMPLE_ROLE_RO} \
     max_ttl="10m"
 ```
 
-##### Expected Result:
+##### Expected Result
 ```
 $ vault write ${MYSQL_VAULT_PATH}/roles/${MYSQL_EXAMPLE_ROLE_RO} \
 >     db_name=${MYSQL_DB_NAME} \
@@ -141,7 +141,7 @@ vault write ${MYSQL_VAULT_PATH}/roles/${MYSQL_EXAMPLE_ROLE_RW} \
     max_ttl="10m"
 ```
 
-##### Expected Result:
+##### Expected Result
 ```
 $ vault write ${MYSQL_VAULT_PATH}/roles/${MYSQL_EXAMPLE_ROLE_RW} \
 >     db_name=${MYSQL_DB_NAME} \
@@ -157,7 +157,7 @@ Success! Data written to: mysql-demo/roles/demo-mysql-role-rw
 vault list ${MYSQL_VAULT_PATH}/roles
 ```
 
-##### Expected Result:
+##### Expected Result
 ```
 $ vault list ${MYSQL_VAULT_PATH}/roles
 Keys
@@ -174,7 +174,7 @@ vault read ${MYSQL_VAULT_PATH}/creds/${MYSQL_EXAMPLE_ROLE_RO}
 
 Run this command multiple times and note that each time you get a unique username and password.
 
-##### Expected Result:
+##### Expected Result
 ```
 $ vault read ${MYSQL_VAULT_PATH}/creds/${MYSQL_EXAMPLE_ROLE_RO}
 Key                Value
@@ -213,7 +213,7 @@ Disconnect from the database.
 quit
 ```
 
-##### Expected Result:
+##### Expected Result
 ```
 $ mysql -h ${MYSQL_DB_HOST} -D ${MYSQL_DB_NAME} -u v-userpass-d-demo-mysql-D7RNkd61 -p
 Enter password: 
@@ -249,7 +249,7 @@ vault read ${MYSQL_VAULT_PATH}/creds/${MYSQL_EXAMPLE_ROLE_RW}
 
 Run this command multiple times and note that each time you get a unique username and password.
 
-##### Expected Result:
+##### Expected Result
 ```
 $ vault read ${MYSQL_VAULT_PATH}/creds/${MYSQL_EXAMPLE_ROLE_RW}
 Key                Value
@@ -276,7 +276,7 @@ username           v-userpass-d-demo-mysql-QZ7eWHBf
 mysql -h ${MYSQL_DB_HOST} -D ${MYSQL_DB_NAME} -u <username> -p
 ```
 
-##### Expected Result:
+##### Expected Result
 ```
 $ mysql -h ${MYSQL_DB_HOST} -D ${MYSQL_DB_NAME} -u v-userpass-d-demo-mysql-QZ7eWHBf -p
 Enter password: 
@@ -291,7 +291,7 @@ Bye
 vault lease lookup <lease id>
 ```
 
-##### Expected Result:
+##### Expected Result
 ```
 $ vault lease lookup mysql-demo/creds/demo-mysql-role-rw/Dp5kdwFFeh6VLmvnCWOxammI
 Key             Value
@@ -310,7 +310,7 @@ ttl             3m38s
 mysql -h ${MYSQL_DB_HOST} -u ${MYSQL_VAULT_DB_USER} -e 'select user from mysql.user;' --password=${MYSQL_VAULT_DB_PASSWORD}
 ```
 
-##### Expected Result:
+##### Expected Result
 ```
 $ mysql -h ${MYSQL_DB_HOST} -u ${MYSQL_VAULT_DB_USER} -e 'select user from mysql.user;' --password=${MYSQL_VAULT_DB_PASSWORD}
 mysql: [Warning] Using a password on the command line interface can be insecure.
@@ -338,7 +338,7 @@ Revoke one of the leases.
 vault lease revoke <lease id>
 ```
 
-##### Expected Result:
+##### Expected Result
 ```
 $ vault lease revoke mysql-demo/creds/demo-mysql-role-rw/Dp5kdwFFeh6VLmvnCWOxammI
 All revocation operations queued successfully!
@@ -352,7 +352,7 @@ List the database users. Note that the one from the lease you revoked no longer 
 mysql -h ${MYSQL_DB_HOST} -u ${MYSQL_VAULT_DB_USER} -e 'select user from mysql.user;' --password=${MYSQL_VAULT_DB_PASSWORD}
 ```
 
-##### Expected Result:
+##### Expected Result
 ```
 $ mysql -h ${MYSQL_DB_HOST} -u ${MYSQL_VAULT_DB_USER} -e 'select user from mysql.user;' --password=${MYSQL_VAULT_DB_PASSWORD}
 mysql: [Warning] Using a password on the command line interface can be insecure.
@@ -379,7 +379,7 @@ We can also revoke leases by specifying a prefix. Revoke all leases for the `${M
 vault lease revoke -prefix ${MYSQL_VAULT_PATH}/creds/${MYSQL_EXAMPLE_ROLE_RW}
 ```
 
-##### Expected Result:
+##### Expected Result
 ```
 $ vault lease revoke -prefix ${MYSQL_VAULT_PATH}/creds/${MYSQL_EXAMPLE_ROLE_RW}
 All revocation operations queued successfully!
@@ -393,7 +393,7 @@ List the database users. Note that all users created using the `${MYSQL_EXAMPLE_
 mysql -h ${MYSQL_DB_HOST} -u ${MYSQL_VAULT_DB_USER} -e 'select user from mysql.user;' --password=${MYSQL_VAULT_DB_PASSWORD}
 ```
 
-##### Expected Result:
+##### Expected Result
 ```
 $ mysql -h ${MYSQL_DB_HOST} -u ${MYSQL_VAULT_DB_USER} -e 'select user from mysql.user;' --password=${MYSQL_VAULT_DB_PASSWORD}
 mysql: [Warning] Using a password on the command line interface can be insecure.
